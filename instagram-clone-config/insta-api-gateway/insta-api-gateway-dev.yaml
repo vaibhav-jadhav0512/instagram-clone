@@ -5,7 +5,7 @@ spring:
         - id: insta-comment-be
           uri: lb://INSTA-COMMENT-BE
           predicates:
-            - Path=/api/comment/**
+            - Path=/api/v1/comment/**
           filters:
           - AuthenticationFilter
         - id: insta-authorization-server
