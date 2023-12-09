@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: insta-comment-be
+          uri: lb://INSTA-COMMENT-BE
+          predicates:
+            - Path=/api/comment/**
+          filters:
+          - AuthenticationFilter
+        - id: insta-authorization-server
+          uri: lb://INSTA-AUTHORIZATION-SERVER
+          predicates:
+            - Path=/api/v1/auth/**
+  application:
+     name: insta-api-gateway
+server:
+  port: 8888
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
