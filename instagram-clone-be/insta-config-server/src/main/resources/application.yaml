@@ -10,9 +10,11 @@ spring:
         git:
           uri: https://github.com/vaibhav-jadhav0512/instagram-clone.git
           clone-on-start: true
-          username: vaibhav-jadhav0512
-          password: Vaibhav@0596
+          username: '{cipher}5c39649c161dcdaf9888e99a3911f821847034860bd522982106e4c1d3dd8b98640bb6c5c84ab153f9f44fb7a42ba618'
+          password: '{cipher}28f9f41b9e01dd523fa02156c6c4104fd6ea9e7165c3fce807c7f203dfe9bf23'
           searchPaths: 'instagram-clone-config/{application}'
           force-pull: true
           skip-ssl-validation: true
+encrypt:
+  key: NEqrFx37R/X69WeCV/iPEO1IZo3GmJbPAkmcDbzhfL9UtkUdH1T7Hf+9bUFvPghLdtl6jNkfv6zGl9XJf/8BvsMoGT5vBaiJq8KNXWv6Lww2jB7VkJwUwPp6gj0h5KX4Chkpt1bXRui+CPC6+aILtF3uqcIooosZmAyYfIUPSz0hXm1rB9L9ntwyE0Aa8+3eVd99oGrRKLC9UAZaS7RdY98/3uzZHHpHr9buXOWTUMoobHgthxkrpvVD+87P23BYuZjkbNIcEkiSrWOXeCSLGuy/hmQxwu4CNmf6YwuH1RAwmLPjaHx1XEPLSw3lfIUh8RO2MUFwEutcqaK3rVnzAZ39JaTPbKMLfkfkeQ1wQN4=
 
