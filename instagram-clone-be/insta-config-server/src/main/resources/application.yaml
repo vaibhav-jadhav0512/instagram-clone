@@ -1,0 +1,18 @@
+server:
+  port: 8765
+
+spring:
+  application:
+    name: INSTA-CONFIG-SERVER
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/vaibhav-jadhav0512/instagram-clone.git
+          clone-on-start: true
+          username: vaibhav-jadhav0512
+          password: Vaibhav@0596
+          searchPaths: 'instagram-clone-config/{application}'
+          force-pull: true
+          skip-ssl-validation: true
+
