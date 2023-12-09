@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: INSTA-CONFIG-SERVER
+    name: insta-config-server
   cloud:
     config:
       server:
