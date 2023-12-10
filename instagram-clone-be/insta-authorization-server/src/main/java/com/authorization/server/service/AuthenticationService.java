@@ -54,7 +54,9 @@ public class AuthenticationService {
 	public boolean validateToken(String token) {
 		String userName = jwtService.extractUserName(token);
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
-		return jwtService.isTokenValid(token, userDetails);
+		boolean tokenValidity = jwtService.isTokenValid(token, userDetails);
+		log.info("Token is :{}", tokenValidity);
+		return tokenValidity;
 	}
 
 }
