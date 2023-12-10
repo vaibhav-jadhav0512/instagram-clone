@@ -12,6 +12,14 @@ spring:
           uri: lb://INSTA-AUTHORIZATION-SERVER
           predicates:
             - Path=/api/v1/auth/**
+          filters:
+          - AuthenticationFilter
+        - id: insta-image-be
+          uri: lb://INSTA-IMAGE-BE
+          predicates:
+            - Path=/api/v1/image/**
+          filters:
+          - AuthenticationFilter
   application:
      name: insta-api-gateway
 server:
