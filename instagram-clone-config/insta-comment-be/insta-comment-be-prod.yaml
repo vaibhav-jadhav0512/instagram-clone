@@ -6,6 +6,10 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   application:
     name: insta-comment-be
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 server:
   port: 8082
 eureka:
@@ -14,6 +18,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
-feign:
-  hystrix:
-    enabled: true
