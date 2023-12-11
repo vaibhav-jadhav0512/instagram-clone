@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.insta.api.gateway.exception.MissingAuthorizationHeaderException;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -32,7 +34,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 		return ((exchange, chain) -> {
 			if (routeValidator.isSecured.test(exchange.getRequest())) {
 				if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION))
-					throw new RuntimeException("Missing Authorization header");
+					throw new MissingAuthorizationHeaderException("Missing auth header");
 				String authHeaders = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
 				if (authHeaders != null && authHeaders.startsWith("Bearer ")) {
 					authHeaders = authHeaders.substring(7);

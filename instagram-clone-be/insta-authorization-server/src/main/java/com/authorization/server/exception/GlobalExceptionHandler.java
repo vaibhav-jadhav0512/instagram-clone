@@ -33,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	private static final String CAUSE = "Cause: {}";
 
 	@ExceptionHandler(UsernameNotFoundException.class)
-	public final ResponseEntity<ErrorResponse> handleInvalidRegException(UsernameNotFoundException ex,
+	public final ResponseEntity<ErrorResponse> usernameNotFoundException(UsernameNotFoundException ex,
 			WebRequest request) {
 		log.info("Handling UsernameNotFoundException");
 		String errorCode = env.getProperty(ExceptionConstantsMap.USERNAME_NOT_FOUND_EXCEPTION);
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(IncorrectPasswordException.class)
-	public final ResponseEntity<ErrorResponse> handleInvalidRegException(IncorrectPasswordException ex,
+	public final ResponseEntity<ErrorResponse> incorrectPasswordException(IncorrectPasswordException ex,
 			WebRequest request) {
 		log.info("Handling IncorrectPasswordException");
 		String errorCode = env.getProperty(ExceptionConstantsMap.INCORRECT_PASSWORD_EXCEPTION);
@@ -67,7 +67,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(JwtExpiredException.class)
-	public final ResponseEntity<ErrorResponse> handleInvalidRegException(JwtExpiredException ex, WebRequest request) {
+	public final ResponseEntity<ErrorResponse> jwtExpiredException(JwtExpiredException ex, WebRequest request) {
 		log.info("Handling JwtExpiredException");
 		String errorCode = env.getProperty(ExceptionConstantsMap.JWT_EXPIRED_EXCEPTION);
 		log.info(ERROR_CODE, errorCode);
@@ -83,7 +83,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(JwtParseException.class)
-	public final ResponseEntity<ErrorResponse> handleInvalidRegException(JwtParseException ex, WebRequest request) {
+	public final ResponseEntity<ErrorResponse> jwtParseException(JwtParseException ex, WebRequest request) {
 		log.info("Handling JwtParseException");
 		String errorCode = env.getProperty(ExceptionConstantsMap.JWT_PARSE_EXCEPTION);
 		log.info(ERROR_CODE, errorCode);
