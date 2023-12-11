@@ -7,8 +7,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
+@RequiredArgsConstructor
 public class FeignClientInterceptor {
 	@Bean
 	public RequestInterceptor requestInterceptor() {

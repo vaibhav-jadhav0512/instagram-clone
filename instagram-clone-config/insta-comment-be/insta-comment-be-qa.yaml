@@ -6,10 +6,6 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   application:
     name: insta-comment-be
-  cloud:
-    openfeign:
-      circuitbreaker:
-        enabled: true
 server:
   port: 8082
 eureka:
