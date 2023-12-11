@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.authorization.server.exception.UsernameNotFoundException;
 import com.authorization.server.model.User;
 import com.authorization.server.repository.rowmapper.UserRowMapper;
 import com.authorization.server.repository.sql.AuthorizationQueries;
@@ -29,8 +29,8 @@ public class UserRepositoryImpl implements UserRepository {
 		try {
 			User user = template.queryForObject(AuthorizationQueries.FIND_BY_USERNAME, params, new UserRowMapper());
 			return Optional.ofNullable(user);
-		} catch (EmptyResultDataAccessException e) {
-			return Optional.empty();
+		} catch (Exception e) {
+			throw new UsernameNotFoundException("User not found by username: " + userName);
 		}
 	}
 

@@ -2,6 +2,7 @@ package com.authorization.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,8 @@ import com.authorization.server.config.JwtService;
 import com.authorization.server.dto.AuthRequest;
 import com.authorization.server.dto.AuthResponse;
 import com.authorization.server.dto.RegisterRequest;
+import com.authorization.server.exception.IncorrectPasswordException;
+import com.authorization.server.exception.UsernameNotFoundException;
 import com.authorization.server.model.Role;
 import com.authorization.server.model.User;
 import com.authorization.server.repository.UserRepository;
@@ -44,8 +47,14 @@ public class AuthenticationService {
 	}
 
 	public AuthResponse authenticate(AuthRequest authRequest) {
-		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+		} catch (org.springframework.security.core.userdetails.UsernameNotFoundException e) {
+			throw new UsernameNotFoundException("User not found");
+		} catch (BadCredentialsException e) {
+			throw new IncorrectPasswordException("Incorrect password");
+		}
 		var user = repository.findByUsername(authRequest.getUsername()).orElseThrow();
 		var jwtToken = jwtService.generateToken(user);
 		return AuthResponse.builder().token(jwtToken).build();

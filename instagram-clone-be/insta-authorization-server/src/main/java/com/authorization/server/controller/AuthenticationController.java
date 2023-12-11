@@ -29,7 +29,7 @@ public class AuthenticationController {
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest authRequest) {
-		return new ResponseEntity<>(service.authenticate(authRequest), HttpStatus.OK);
+			return new ResponseEntity<>(service.authenticate(authRequest), HttpStatus.OK);
 	}
 
 	@GetMapping("/validate")
