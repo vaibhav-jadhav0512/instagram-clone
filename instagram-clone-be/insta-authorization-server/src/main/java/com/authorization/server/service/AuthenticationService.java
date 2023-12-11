@@ -14,11 +14,14 @@ import com.authorization.server.dto.AuthRequest;
 import com.authorization.server.dto.AuthResponse;
 import com.authorization.server.dto.RegisterRequest;
 import com.authorization.server.exception.IncorrectPasswordException;
+import com.authorization.server.exception.JwtExpiredException;
+import com.authorization.server.exception.JwtParseException;
 import com.authorization.server.exception.UsernameNotFoundException;
 import com.authorization.server.model.Role;
 import com.authorization.server.model.User;
 import com.authorization.server.repository.UserRepository;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,11 +64,15 @@ public class AuthenticationService {
 	}
 
 	public boolean validateToken(String token) {
-		String userName = jwtService.extractUserName(token);
-		UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
-		boolean tokenValidity = jwtService.isTokenValid(token, userDetails);
-		log.info("Token is :{}", tokenValidity);
-		return tokenValidity;
+		try {
+			String userName = jwtService.extractUserName(token);
+			UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
+			return jwtService.isTokenValid(token, userDetails);
+		} catch (ExpiredJwtException e) {
+			throw new JwtExpiredException("Token expired");
+		} catch (Exception e) {
+			throw new JwtParseException("Jwt token tampered");
+		}
 	}
 
 }

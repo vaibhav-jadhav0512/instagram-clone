@@ -30,12 +30,12 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 	@Override
 	public GatewayFilter apply(Config config) {
 		return ((exchange, chain) -> {
-			if(routeValidator.isSecured.test(exchange.getRequest())) {
-				if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION))
+			if (routeValidator.isSecured.test(exchange.getRequest())) {
+				if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION))
 					throw new RuntimeException("Missing Authorization header");
-				String authHeaders=exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-				if(authHeaders!=null && authHeaders.startsWith("Bearer ")) {
-					authHeaders=authHeaders.substring(7);
+				String authHeaders = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+				if (authHeaders != null && authHeaders.startsWith("Bearer ")) {
+					authHeaders = authHeaders.substring(7);
 				}
 				HttpHeaders headers = new HttpHeaders();
 				headers.setBearerAuth(authHeaders);
@@ -47,7 +47,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 						log.info("Token valideted at API gateway");
 					}
 				} catch (HttpClientErrorException e) {
-					throw new RuntimeException("Unauthorized");
+					log.error("Token validation failed:{}", e.getMessage());
 				}
 			}
 			return chain.filter(exchange);

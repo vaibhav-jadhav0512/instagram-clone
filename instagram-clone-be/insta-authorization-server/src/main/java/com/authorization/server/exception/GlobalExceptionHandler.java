@@ -65,4 +65,36 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		log.info(RETURNING_RESPONSE, errorResponse);
 		return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
 	}
+
+	@ExceptionHandler(JwtExpiredException.class)
+	public final ResponseEntity<ErrorResponse> handleInvalidRegException(JwtExpiredException ex, WebRequest request) {
+		log.info("Handling JwtExpiredException");
+		String errorCode = env.getProperty(ExceptionConstantsMap.JWT_EXPIRED_EXCEPTION);
+		log.info(ERROR_CODE, errorCode);
+
+		String errorMessage = messageSource.getMessage(errorCode, ex.getArgs(), LocaleContextHolder.getLocale());
+		log.info(ERROR_MESSAGE, errorMessage);
+
+		ErrorResponse errorResponse = new ErrorResponse(errorCode, Calendar.getInstance().getTime(), "", errorMessage,
+				""); // Sending Stack Trace is not compulsory ex.getMessage() is also enough
+
+		log.info(RETURNING_RESPONSE, errorResponse);
+		return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+	}
+
+	@ExceptionHandler(JwtParseException.class)
+	public final ResponseEntity<ErrorResponse> handleInvalidRegException(JwtParseException ex, WebRequest request) {
+		log.info("Handling JwtParseException");
+		String errorCode = env.getProperty(ExceptionConstantsMap.JWT_PARSE_EXCEPTION);
+		log.info(ERROR_CODE, errorCode);
+
+		String errorMessage = messageSource.getMessage(errorCode, ex.getArgs(), LocaleContextHolder.getLocale());
+		log.info(ERROR_MESSAGE, errorMessage);
+
+		ErrorResponse errorResponse = new ErrorResponse(errorCode, Calendar.getInstance().getTime(), "", errorMessage,
+				""); // Sending Stack Trace is not compulsory ex.getMessage() is also enough
+
+		log.info(RETURNING_RESPONSE, errorResponse);
+		return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+	}
 }

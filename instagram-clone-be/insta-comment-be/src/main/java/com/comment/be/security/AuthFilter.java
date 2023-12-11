@@ -49,9 +49,9 @@ public class AuthFilter extends OncePerRequestFilter {
 				filterChain.doFilter(request, response);
 			}
 		} catch (HttpClientErrorException e) {
-			response.setStatus(403);
-			System.err.println(e);
-			return;
+			response.setStatus(e.getRawStatusCode());
+			response.getOutputStream().write(e.getResponseBodyAsByteArray());
+			response.flushBuffer();
 		}
 	}
 }
