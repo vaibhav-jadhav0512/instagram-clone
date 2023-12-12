@@ -1,13 +1,16 @@
 package com.authorization.server.repository;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.authorization.server.exception.UserAlreadyExistsException;
 import com.authorization.server.exception.UsernameNotFoundException;
 import com.authorization.server.model.User;
 import com.authorization.server.repository.rowmapper.UserRowMapper;
@@ -39,10 +42,15 @@ public class UserRepositoryImpl implements UserRepository {
 		log.info("Adding user:{}", user.toString());
 		Map<String, Object> params = new HashMap<>();
 		params.put("userName", user.getUsername());
+		params.put("fullname", user.getFullName());
 		params.put("email", user.getEmail());
 		params.put("password", user.getPassword());
-		template.update(AuthorizationQueries.ADD_USER, params);
-
+		try {
+			template.update(AuthorizationQueries.ADD_USER, params);
+		} catch (Exception e) {
+			if (e instanceof SQLIntegrityConstraintViolationException || e instanceof DuplicateKeyException)
+				throw new UserAlreadyExistsException("User already exists");
+		}
 	}
 
 }

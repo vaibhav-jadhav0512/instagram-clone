@@ -97,4 +97,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		log.info(RETURNING_RESPONSE, errorResponse);
 		return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
 	}
+
+	@ExceptionHandler(UserAlreadyExistsException.class)
+	public final ResponseEntity<ErrorResponse> userAlreadyExistsException(UserAlreadyExistsException ex,
+			WebRequest request) {
+		log.info("Handling UserAlreadyExistsException");
+		String errorCode = env.getProperty(ExceptionConstantsMap.USER_ALREADY_EXISTS_EXCEPTION);
+		log.info(ERROR_CODE, errorCode);
+
+		String errorMessage = messageSource.getMessage(errorCode, ex.getArgs(), LocaleContextHolder.getLocale());
+		log.info(ERROR_MESSAGE, errorMessage);
+
+		ErrorResponse errorResponse = new ErrorResponse(errorCode, Calendar.getInstance().getTime(), "", errorMessage,
+				""); // Sending Stack Trace is not compulsory ex.getMessage() is also enough
+
+		log.info(RETURNING_RESPONSE, errorResponse);
+		return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+	}
 }

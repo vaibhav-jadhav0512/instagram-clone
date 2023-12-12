@@ -41,9 +41,10 @@ public class AuthenticationService {
 	private final UserDetailsService userDetailsService;
 
 	public AuthResponse register(RegisterRequest regRequest) {
-		var user = User.builder().userName(regRequest.getUsername()).email(regRequest.getEmail())
+		var user = User.builder().fullName(regRequest.getFullname()).userName(regRequest.getUsername())
+				.email(regRequest.getEmail())
 				.password(passwordEncoder.encode(regRequest.getPassword())).role(Role.USER).build();
-		repository.addUser(user);
+			repository.addUser(user);
 		log.info("User registered:{}", user.toString());
 		var jwtToken = jwtService.generateToken(user);
 		return AuthResponse.builder().token(jwtToken).build();
