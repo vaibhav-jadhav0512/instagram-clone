@@ -44,7 +44,6 @@ public class AuthFilter extends OncePerRequestFilter {
 		try {
 			ResponseEntity<Void> authResponse = restTemplate.exchange(AUTH_URL + jwtToken, HttpMethod.GET, entity,
 					Void.class);
-			System.out.println(authResponse);
 			if (authResponse.getStatusCode().is2xxSuccessful()) {
 				filterChain.doFilter(request, response);
 			}

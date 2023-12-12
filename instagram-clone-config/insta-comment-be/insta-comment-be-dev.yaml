@@ -10,6 +10,12 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      group-id: COMMENT
 server:
   port: 8082
 eureka:
