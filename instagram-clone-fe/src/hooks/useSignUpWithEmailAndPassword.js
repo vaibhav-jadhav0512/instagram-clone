@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useShowToast from "./useShowToast";
+import useAuthStore from "../store/authStore";
 
 const useSignUpWithEmailAndPassword = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const showToast = useShowToast();
-
+  const loginUser = useAuthStore((state) => state.login);
+  const logoutUser = useAuthStore((state) => state.logout);
   const signup = async (inputs) => {
     if (
       !inputs.fullName ||
@@ -34,8 +36,13 @@ const useSignUpWithEmailAndPassword = () => {
       setToken(token);
       localStorage.setItem("token", token);
       setError(null);
+      const user = await axios.get(
+        "http://localhost:8888/api/v1/auth/user?token=" + token
+      );
+      localStorage.setItem("user-info", JSON.stringify(user.data));
+      loginUser(user)
     } catch (error) {
-        console.log(error)
+      console.log(error);
       showToast("Error", error.message, "error");
       setError("Something went wrong!");
       setToken(null);
@@ -45,9 +52,13 @@ const useSignUpWithEmailAndPassword = () => {
   };
 
   const logout = () => {
+    setLoading(true);
     setToken(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("user-info");
     setError(null);
+    setLoading(false);
+    logoutUser()
   };
 
   const isAuthenticated = () => {

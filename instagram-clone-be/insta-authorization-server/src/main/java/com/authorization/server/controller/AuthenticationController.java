@@ -1,5 +1,7 @@
 package com.authorization.server.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.authorization.server.dto.AuthRequest;
 import com.authorization.server.dto.AuthResponse;
 import com.authorization.server.dto.RegisterRequest;
+import com.authorization.server.model.User;
 import com.authorization.server.service.AuthenticationService;
 
 @RestController
@@ -35,5 +38,10 @@ public class AuthenticationController {
 	@GetMapping("/validate")
 	public ResponseEntity<Boolean> validateToken(@RequestParam("token") String token) {
 		return new ResponseEntity<>(service.validateToken(token), HttpStatus.OK);
+	}
+
+	@GetMapping("/user")
+	public ResponseEntity<Optional<User>> getUserDetails(@RequestParam("token") String token) {
+		return new ResponseEntity<>(service.getUserDetails(token), HttpStatus.OK);
 	}
 }

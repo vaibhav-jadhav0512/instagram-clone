@@ -1,5 +1,7 @@
 package com.authorization.server.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -42,9 +44,9 @@ public class AuthenticationService {
 
 	public AuthResponse register(RegisterRequest regRequest) {
 		var user = User.builder().fullName(regRequest.getFullname()).userName(regRequest.getUsername())
-				.email(regRequest.getEmail())
-				.password(passwordEncoder.encode(regRequest.getPassword())).role(Role.USER).build();
-			repository.addUser(user);
+				.email(regRequest.getEmail()).password(passwordEncoder.encode(regRequest.getPassword())).role(Role.USER)
+				.build();
+		repository.addUser(user);
 		log.info("User registered:{}", user.toString());
 		var jwtToken = jwtService.generateToken(user);
 		return AuthResponse.builder().token(jwtToken).build();
@@ -69,6 +71,22 @@ public class AuthenticationService {
 			String userName = jwtService.extractUserName(token);
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
 			return jwtService.isTokenValid(token, userDetails);
+		} catch (ExpiredJwtException e) {
+			throw new JwtExpiredException("Token expired");
+		} catch (Exception e) {
+			throw new JwtParseException("Jwt token tampered");
+		}
+	}
+
+	public Optional<User> getUserDetails(String token) {
+		try {
+			String userName = jwtService.extractUserName(token);
+			UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
+			if (jwtService.isTokenValid(token, userDetails)) {
+				return repository.findByUsername(userName);
+			} else {
+				return null;
+			}
 		} catch (ExpiredJwtException e) {
 			throw new JwtExpiredException("Token expired");
 		} catch (Exception e) {

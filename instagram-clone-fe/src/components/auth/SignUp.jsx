@@ -11,7 +11,7 @@ const SignUp = () => {
     password: "",
   });
   const [showPassword, setshowPassword] = useState(false);
-  const { error, signup, loading, logout, isAuthenticated } =
+  const { error, signup, loading } =
     useSignUpWithEmailAndPassword();
   return (
     <>
