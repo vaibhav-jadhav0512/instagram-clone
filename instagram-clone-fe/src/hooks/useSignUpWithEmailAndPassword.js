@@ -43,7 +43,7 @@ const useSignUpWithEmailAndPassword = () => {
       loginUser(user)
     } catch (error) {
       console.log(error);
-      showToast("Error", error.message, "error");
+      showToast("Error", error.response.data.message, "error");
       setError("Something went wrong!");
       setToken(null);
     } finally {
