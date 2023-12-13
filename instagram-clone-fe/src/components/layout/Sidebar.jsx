@@ -13,7 +13,7 @@ import { BiLogOut } from "react-icons/bi";
 import useSignUpWithEmailAndPassword from "../../hooks/useSignUpWithEmailAndPassword";
 
 const Sidebar = () => {
-  const {logout,loading}=useSignUpWithEmailAndPassword()
+  const { logout, loading } = useSignUpWithEmailAndPassword();
   const sidebarItems = [
     { icon: <AiFillHome size={25} />, text: "Home", link: "/" },
     { icon: <SearchLogo />, text: "Search" },
@@ -21,11 +21,7 @@ const Sidebar = () => {
     { icon: <CreatePostLogo />, text: "Create" },
     {
       icon: (
-        <Avatar
-          size={"sm"}
-          name="Vaibhav Jadhav"
-          src="/images/profile.jpg"
-        />
+        <Avatar size={"sm"} name="Vaibhav Jadhav" src="/images/profile.jpg" />
       ),
       text: "Profile",
       link: "/vaibhav",
@@ -84,38 +80,45 @@ const Sidebar = () => {
                 _hover={{ bg: "whiteAlpha.400" }}
                 borderRadius={6}
                 p={2}
-                w={{base:10,md:"full"}}
+                w={{ base: 10, md: "full" }}
                 justifyContent={{ base: "center", md: "flex-start" }}
               >
                 {item.icon}
                 <Box display={{ base: "none", md: "block" }}>{item.text}</Box>
               </Link>
             </Tooltip>
-         ))}
+          ))}
         </Flex>
         <Tooltip
-              hasArrow
-              label={"Logout"}
-              placement="right"
-              ml={1}
-              openDelay={500}
-              display={{ base: "block", md: "none" }}
+          hasArrow
+          label={"Logout"}
+          placement="right"
+          ml={1}
+          openDelay={500}
+          display={{ base: "block", md: "none" }}
+        >
+          <Flex
+            onClick={logout}
+            alignItems={"center"}
+            gap={4}
+            _hover={{ bg: "whiteAlpha.400" }}
+            borderRadius={6}
+            mt={"auto"}
+            p={2}
+            w={{ base: 10, md: "full" }}
+            justifyContent={{ base: "center", md: "flex-start" }}
+          >
+            <BiLogOut size={25} />
+            <Button
+              display={{ base: "none", md: "block" }}
+              variant={"ghost"}
+              _hover={{ bg: "transparent" }}
+              isLoading={loading}
             >
-              <Flex
-              onClick={logout}
-                alignItems={"center"}
-                gap={4}
-                _hover={{ bg: "whiteAlpha.400" }}
-                borderRadius={6}
-                mt={"auto"}
-                p={2}
-                w={{base:10,md:"full"}}
-                justifyContent={{ base: "center", md: "flex-start" }}
-              >
-               <BiLogOut size={25}/>
-                <Button display={{ base: "none", md: "block" }} variant={"ghost"} _hover={{bg:"transparent"}} isLoading={loading}>Logout</Button>
-              </Flex>
-            </Tooltip>
+              Logout
+            </Button>
+          </Flex>
+        </Tooltip>
       </Flex>
     </Box>
   );
