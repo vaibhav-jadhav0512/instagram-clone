@@ -11,9 +11,11 @@ import {
 import { AiFillHome } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 import useSignUpWithEmailAndPassword from "../../hooks/useSignUpWithEmailAndPassword";
+import useAuthStore from "../../store/authStore";
 
 const Sidebar = () => {
   const { logout, loading } = useSignUpWithEmailAndPassword();
+  const authUser = useAuthStore((state) => state.user);
   const sidebarItems = [
     { icon: <AiFillHome size={25} />, text: "Home", link: "/" },
     { icon: <SearchLogo />, text: "Search" },
@@ -24,7 +26,7 @@ const Sidebar = () => {
         <Avatar size={"sm"} name="Vaibhav Jadhav" src="/images/profile.jpg" />
       ),
       text: "Profile",
-      link: "/vaibhav",
+      link: "/"+authUser.username,
     },
   ];
   return (

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import com.authorization.server.exception.UserAlreadyExistsException;
 import com.authorization.server.exception.UsernameNotFoundException;
 import com.authorization.server.model.User;
+import com.authorization.server.model.UserProfile;
+import com.authorization.server.repository.rowmapper.UserProfileRowMapper;
 import com.authorization.server.repository.rowmapper.UserRowMapper;
 import com.authorization.server.repository.sql.AuthorizationQueries;
 
@@ -50,6 +52,18 @@ public class UserRepositoryImpl implements UserRepository {
 		} catch (Exception e) {
 			if (e instanceof SQLIntegrityConstraintViolationException || e instanceof DuplicateKeyException)
 				throw new UserAlreadyExistsException("User already exists");
+		}
+	}
+
+	@Override
+	public UserProfile getUserProfile(String userName) {
+		log.info("Getting user profile:{}", userName);
+		Map<String, Object> params = new HashMap<>();
+		params.put("username", userName);
+		try {
+			return template.queryForObject(AuthorizationQueries.GET_USER_PROFILE, params, new UserProfileRowMapper());
+		} catch (Exception e) {
+			throw new RuntimeException("Username not found");
 		}
 	}
 

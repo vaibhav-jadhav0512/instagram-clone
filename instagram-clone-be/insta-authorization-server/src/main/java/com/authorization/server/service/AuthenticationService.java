@@ -21,6 +21,7 @@ import com.authorization.server.exception.JwtParseException;
 import com.authorization.server.exception.UsernameNotFoundException;
 import com.authorization.server.model.Role;
 import com.authorization.server.model.User;
+import com.authorization.server.model.UserProfile;
 import com.authorization.server.repository.UserRepository;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -92,6 +93,14 @@ public class AuthenticationService {
 		} catch (Exception e) {
 			throw new JwtParseException("Jwt token tampered");
 		}
+	}
+
+	public UserProfile getUserProfile(String username) {
+		UserProfile userProfile = repository.getUserProfile(username);
+		if (userProfile.getUserName() == null) {
+			throw new UsernameNotFoundException("Username not found");
+		}
+		return userProfile;
 	}
 
 }

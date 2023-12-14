@@ -40,10 +40,10 @@ const useSignUpWithEmailAndPassword = () => {
         "http://localhost:8888/api/v1/auth/user?token=" + token
       );
       localStorage.setItem("user-info", JSON.stringify(user.data));
-      loginUser(user)
+      loginUser(user.data)
     } catch (error) {
       console.log(error);
-      showToast("Error", error.response.data.message, "error");
+      showToast("Error", error?.response?.data.message, "error");
       setError("Something went wrong!");
       setToken(null);
     } finally {

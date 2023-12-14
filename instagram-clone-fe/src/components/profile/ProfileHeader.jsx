@@ -7,8 +7,16 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
+import userProfileStore from "../../store/userProfileStore";
+import useAuthStore from "../../store/authStore";
 
 const ProfileHeader = () => {
+  const { userProfile } = userProfileStore();
+  const authUser = useAuthStore((state) => state.user);
+  const visitOwnProfileAndAuth =
+    authUser && authUser.username === userProfile.userName;
+  const visitAnotherProfileAndAuth =
+    authUser && authUser.username !== userProfile.userName;
   return (
     <Flex
       gap={{ base: 4, sm: 10 }}
@@ -21,7 +29,7 @@ const ProfileHeader = () => {
         alignSelf={"flex-start"}
         mx={"auto"}
       >
-        <Avatar name="Vaibhav Jadhav" src="/images/profile.jpg" alt="profile" />
+        <Avatar src="/images/profile.jpg" alt="profile" />
       </AvatarGroup>
       <VStack alignItems={"start"} gap={2} mx={"auto"} flex={1}>
         <Flex
@@ -31,44 +39,60 @@ const ProfileHeader = () => {
           alignItems={"center"}
           w={"full"}
         >
-          <Text fontSize={{ base: "sm", md: "lg" }}>vaiiibhav_jadhav</Text>
-          <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
-            <Button
-              bg={"white"}
-              color={"black"}
-              _hover={{ bg: "whiteAlpha.800" }}
-              size={{ base: "xs", md: "sm" }}
-            >
-              Edit Profile
-            </Button>
-          </Flex>
+          <Text fontSize={{ base: "sm", md: "lg" }}>
+            {userProfile.userName}
+          </Text>
+          {visitOwnProfileAndAuth && (
+            <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
+              <Button
+                bg={"white"}
+                color={"black"}
+                _hover={{ bg: "whiteAlpha.800" }}
+                size={{ base: "xs", md: "sm" }}
+              >
+                Edit Profile
+              </Button>
+            </Flex>
+          )}
+          {visitAnotherProfileAndAuth && (
+            <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
+              <Button
+                bg={"blue.500"}
+                color={"white"}
+                _hover={{ bg: "blue.600" }}
+                size={{ base: "xs", md: "sm" }}
+              >
+                Follow
+              </Button>
+            </Flex>
+          )}
         </Flex>
         <Flex alignItems={"center"} gap={{ base: 2, sm: 4 }}>
-          <Text fontSize={{base:"xs",md:"sm"}}>
+          <Text fontSize={{ base: "xs", md: "sm" }}>
             <Text as={"span"} fontWeight={"bold"} mr={1}>
-              4
+              {userProfile.posts}
             </Text>
             Posts
           </Text>
-          <Text fontSize={{base:"xs",md:"sm"}}>
+          <Text fontSize={{ base: "xs", md: "sm" }}>
             <Text as={"span"} fontWeight={"bold"} mr={1}>
-              3344
+              {userProfile.followers}
             </Text>
             Followers
           </Text>
-          <Text fontSize={{base:"xs",md:"sm"}}>
+          <Text fontSize={{ base: "xs", md: "sm" }}>
             <Text as={"span"} fontWeight={"bold"} mr={1}>
-              433
+              {userProfile.following}
             </Text>
             Following
           </Text>
         </Flex>
         <Flex alignItems={"center"} gap={4}>
           <Text fontSize={"sm"} fontWeight={"bold"}>
-            Vaibhav Jadhav
+            {userProfile.fullName}
           </Text>
         </Flex>
-        <Text fontSize={"sm"}>Success is not an event, its a process.</Text>
+        <Text fontSize={"sm"}>{userProfile.bio}</Text>
       </VStack>
     </Flex>
   );
