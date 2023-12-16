@@ -10,6 +10,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.authorization.server.dto.UserUpdateRequest;
 import com.authorization.server.exception.UserAlreadyExistsException;
 import com.authorization.server.exception.UsernameNotFoundException;
 import com.authorization.server.model.User;
@@ -65,6 +66,26 @@ public class UserRepositoryImpl implements UserRepository {
 		} catch (Exception e) {
 			throw new RuntimeException("Username not found");
 		}
+	}
+
+	@Override
+	public int updateUserProfile(UserUpdateRequest userUpdateRequest) {
+		StringBuilder updateQueryBuilder = new StringBuilder("UPDATE insta.`user` SET ");
+		Map<String, Object> params = new HashMap<>();
+		params.put("username", userUpdateRequest.getUserName());
+		if (userUpdateRequest.getFullName() != null) {
+			updateQueryBuilder.append("fullname = :fullName, ");
+			params.put("fullName", userUpdateRequest.getFullName());
+		}
+		if (userUpdateRequest.getBio() != null) {
+			updateQueryBuilder.append("bio = :bio, ");
+			params.put("bio", userUpdateRequest.getBio());
+		}
+		if (updateQueryBuilder.charAt(updateQueryBuilder.length() - 2) == ',') {
+			updateQueryBuilder.delete(updateQueryBuilder.length() - 2, updateQueryBuilder.length());
+		}
+		updateQueryBuilder.append(" WHERE user_name = :username");
+		return template.update(updateQueryBuilder.toString(), params);
 	}
 
 }

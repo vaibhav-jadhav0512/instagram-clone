@@ -1,7 +1,5 @@
 package com.authorization.server.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,7 +19,6 @@ import com.authorization.server.exception.JwtParseException;
 import com.authorization.server.exception.UsernameNotFoundException;
 import com.authorization.server.model.Role;
 import com.authorization.server.model.User;
-import com.authorization.server.model.UserProfile;
 import com.authorization.server.repository.UserRepository;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -78,29 +75,4 @@ public class AuthenticationService {
 			throw new JwtParseException("Jwt token tampered");
 		}
 	}
-
-	public Optional<User> getUserDetails(String token) {
-		try {
-			String userName = jwtService.extractUserName(token);
-			UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
-			if (jwtService.isTokenValid(token, userDetails)) {
-				return repository.findByUsername(userName);
-			} else {
-				return null;
-			}
-		} catch (ExpiredJwtException e) {
-			throw new JwtExpiredException("Token expired");
-		} catch (Exception e) {
-			throw new JwtParseException("Jwt token tampered");
-		}
-	}
-
-	public UserProfile getUserProfile(String username) {
-		UserProfile userProfile = repository.getUserProfile(username);
-		if (userProfile.getUserName() == null) {
-			throw new UsernameNotFoundException("Username not found");
-		}
-		return userProfile;
-	}
-
 }

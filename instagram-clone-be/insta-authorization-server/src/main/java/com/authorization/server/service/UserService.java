@@ -1,4 +1,4 @@
-package com.authorization.server.repository;
+package com.authorization.server.service;
 
 import java.util.Optional;
 
@@ -6,13 +6,12 @@ import com.authorization.server.dto.UserUpdateRequest;
 import com.authorization.server.model.User;
 import com.authorization.server.model.UserProfile;
 
-public interface UserRepository {
+public interface UserService {
 
-	Optional<User> findByUsername(String userName);
+	Optional<User> getUserDetails(String token);
 
-	void addUser(User user);
-
-	UserProfile getUserProfile(String userName);
+	UserProfile getUserProfile(String username);
 
 	int updateUserProfile(UserUpdateRequest userUpdateRequest);
+
 }
