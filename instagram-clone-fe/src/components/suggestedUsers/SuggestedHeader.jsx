@@ -1,7 +1,7 @@
 import { Avatar, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import useSignUpWithEmailAndPassword from "../../hooks/useSignUpWithEmailAndPassword";
-import useAuthStore from "../../store/authStore";
+import useAuthStore from "../../store/useAuthStore";
 import { Link } from "react-router-dom";
 
 const SuggestedHeader = () => {

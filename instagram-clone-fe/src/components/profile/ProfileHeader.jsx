@@ -5,13 +5,16 @@ import {
   Flex,
   Text,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import userProfileStore from "../../store/userProfileStore";
-import useAuthStore from "../../store/authStore";
+import useAuthStore from "../../store/useAuthStore";
+import EditProfile from "./EditProfile";
 
 const ProfileHeader = () => {
   const { userProfile } = userProfileStore();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const authUser = useAuthStore((state) => state.user);
   const visitOwnProfileAndAuth =
     authUser && authUser.username === userProfile.userName;
@@ -49,6 +52,7 @@ const ProfileHeader = () => {
                 color={"black"}
                 _hover={{ bg: "whiteAlpha.800" }}
                 size={{ base: "xs", md: "sm" }}
+                onClick={onOpen}
               >
                 Edit Profile
               </Button>
@@ -94,6 +98,7 @@ const ProfileHeader = () => {
         </Flex>
         <Text fontSize={"sm"}>{userProfile.bio}</Text>
       </VStack>
+      {isOpen && <EditProfile isOpen={isOpen} onClose={onClose} />}
     </Flex>
   );
 };

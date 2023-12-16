@@ -11,7 +11,7 @@ import {
 import { AiFillHome } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 import useSignUpWithEmailAndPassword from "../../hooks/useSignUpWithEmailAndPassword";
-import useAuthStore from "../../store/authStore";
+import useAuthStore from "../../store/useAuthStore";
 
 const Sidebar = () => {
   const { logout, loading } = useSignUpWithEmailAndPassword();

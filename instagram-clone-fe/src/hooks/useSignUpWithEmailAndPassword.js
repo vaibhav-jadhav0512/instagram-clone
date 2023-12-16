@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useShowToast from "./useShowToast";
-import useAuthStore from "../store/authStore";
+import useAuthStore from "../store/useAuthStore";
 
 const useSignUpWithEmailAndPassword = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);

@@ -3,7 +3,7 @@ import HomePage from "./components/pages/HomePage";
 import AuthPage from "./components/pages/AuthPage";
 import PageLayout from "./components/layout/PageLayout";
 import ProfilePage from "./components/profile/ProfilePage";
-import useAuthStore from "./store/authStore";
+import useAuthStore from "./store/useAuthStore";
 
 function App() {
   const authUser=useAuthStore(state=>state.user)

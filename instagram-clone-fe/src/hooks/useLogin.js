@@ -1,6 +1,6 @@
 import axios from "axios";
 import useShowToast from "./useShowToast";
-import useAuthStore from "../store/authStore";
+import useAuthStore from "../store/useAuthStore";
 import { useEffect, useState } from "react";
 
 const useLogin = () => {

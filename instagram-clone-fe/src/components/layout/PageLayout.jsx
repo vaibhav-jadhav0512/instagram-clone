@@ -2,7 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import Sidebar from "./Sidebar";
 import { useLocation } from "react-router-dom";
-import useAuthStore from "../../store/authStore";
+import useAuthStore from "../../store/useAuthStore";
 import Navbar from "./Navbar";
 
 const PageLayout = ({ children }) => {
