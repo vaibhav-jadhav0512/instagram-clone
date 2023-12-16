@@ -28,7 +28,7 @@ public class ImageController {
 			return new ResponseEntity<>("Image uploaded successfully", HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/get/{id}")
 	public ResponseEntity<byte[]> getImageById(@PathVariable("id") Long id) {
 		try {
 			byte[] imageData = imageService.getImageDataById(id);

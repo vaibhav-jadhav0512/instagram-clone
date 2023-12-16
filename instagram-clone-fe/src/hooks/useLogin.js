@@ -25,7 +25,7 @@ const useLogin = () => {
       setToken(token);
       localStorage.setItem("token", token);
       const user = await axios.get(
-        "http://localhost:8888/api/v1/auth/user?token=" + token
+        "http://localhost:8888/user/get/user-details?token=" + token
       );
       localStorage.setItem("user-info", JSON.stringify(user.data));
       loginUser(user.data);

@@ -10,7 +10,7 @@ import org.springframework.util.AntPathMatcher;
 @Component
 public class RouteValidator {
 
-	public static final List<String> openApiEndpoints = List.of("/api/v1/auth/**", "/eureka");
+	public static final List<String> openApiEndpoints = List.of("/api/v1/auth/**", "/eureka", "/user/**");
 
 	private final AntPathMatcher pathMatcher = new AntPathMatcher();
 

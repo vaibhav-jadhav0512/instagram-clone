@@ -1,6 +1,8 @@
 package com.comment.be.security;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,9 +27,19 @@ public class AuthFilter extends OncePerRequestFilter {
 
 	private final RestTemplate restTemplate = new RestTemplate();
 
+	// List of open endpoints (patterns or paths)
+	private final List<String> openEndpoints = Arrays.asList();
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		final String requestURI = request.getRequestURI();
+
+		// Check if the current request URI is an open endpoint
+		if (isOpenEndpoint(requestURI)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
 		final String authHeader = request.getHeader("Authorization");
 		final String jwtToken;
 
@@ -52,5 +64,10 @@ public class AuthFilter extends OncePerRequestFilter {
 			response.getOutputStream().write(e.getResponseBodyAsByteArray());
 			response.flushBuffer();
 		}
+	}
+
+	private boolean isOpenEndpoint(String requestURI) {
+		// Check if the request URI matches any open endpoint pattern
+		return openEndpoints.stream().anyMatch(requestURI::matches);
 	}
 }

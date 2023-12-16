@@ -12,7 +12,7 @@ const useUserProfile = (username) => {
       setloading(true);
       try {
         const user = await axios.get(
-          "http://localhost:8888/api/v1/auth/user/profile/" + username
+          "http://localhost:8888/user/get/profile/" + username
         );
         setUserProfile(user.data);
       } catch (error) {
