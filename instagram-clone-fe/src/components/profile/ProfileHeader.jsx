@@ -17,9 +17,9 @@ const ProfileHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const authUser = useAuthStore((state) => state.user);
   const visitOwnProfileAndAuth =
-    authUser && authUser.username === userProfile.userName;
+    authUser && authUser.username === userProfile.username;
   const visitAnotherProfileAndAuth =
-    authUser && authUser.username !== userProfile.userName;
+    authUser && authUser.username !== userProfile.username;
   return (
     <Flex
       gap={{ base: 4, sm: 10 }}
@@ -43,7 +43,7 @@ const ProfileHeader = () => {
           w={"full"}
         >
           <Text fontSize={{ base: "sm", md: "lg" }}>
-            {userProfile.userName}
+            {userProfile.username}
           </Text>
           {visitOwnProfileAndAuth && (
             <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
@@ -93,7 +93,7 @@ const ProfileHeader = () => {
         </Flex>
         <Flex alignItems={"center"} gap={4}>
           <Text fontSize={"sm"} fontWeight={"bold"}>
-            {userProfile.fullName}
+            {userProfile.fullname}
           </Text>
         </Flex>
         <Text fontSize={"sm"}>{userProfile.bio}</Text>

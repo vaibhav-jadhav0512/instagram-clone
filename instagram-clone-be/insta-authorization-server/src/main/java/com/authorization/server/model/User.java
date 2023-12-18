@@ -24,9 +24,10 @@ public class User implements UserDetails {
 	 */
 	private static final long serialVersionUID = 5336321741194647696L;
 	private int userId;
-	private String fullName;
-	private String userName;
+	private String fullname;
+	private String username;
 	private String email;
+	private String bio;
 	@JsonIgnore
 	private String password;
 	private Role role;
@@ -38,7 +39,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return userName;
+		return username;
 	}
 
 	@Override

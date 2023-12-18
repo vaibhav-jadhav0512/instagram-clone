@@ -41,7 +41,7 @@ public class AuthenticationService {
 	private final UserDetailsService userDetailsService;
 
 	public AuthResponse register(RegisterRequest regRequest) {
-		var user = User.builder().fullName(regRequest.getFullname()).userName(regRequest.getUsername())
+		var user = User.builder().fullname(regRequest.getFullname()).username(regRequest.getUsername())
 				.email(regRequest.getEmail()).password(passwordEncoder.encode(regRequest.getPassword())).role(Role.USER)
 				.build();
 		repository.addUser(user);

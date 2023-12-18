@@ -5,8 +5,8 @@ import useSignUpWithEmailAndPassword from "../../hooks/useSignUpWithEmailAndPass
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
-    fullName: "",
-    userName: "",
+    fullname: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -19,17 +19,17 @@ const SignUp = () => {
         placeholder="Full Name"
         type="text"
         fontSize={14}
-        value={inputs.fullName}
+        value={inputs.fullname}
         size={"sm"}
-        onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
+        onChange={(e) => setInputs({ ...inputs, fullname: e.target.value })}
       />
       <Input
         placeholder="User Name"
         type="text"
         fontSize={14}
-        value={inputs.userName}
+        value={inputs.username}
         size={"sm"}
-        onChange={(e) => setInputs({ ...inputs, userName: e.target.value })}
+        onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
       />
       <Input
         placeholder="Email"

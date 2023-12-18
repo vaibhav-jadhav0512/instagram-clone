@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserProfile getUserProfile(String username) {
 		UserProfile userProfile = repository.getUserProfile(username);
-		if (userProfile.getUserName() == null) {
+		if (userProfile.getUsername() == null) {
 			throw new UsernameNotFoundException("Username not found");
 		}
 		return userProfile;

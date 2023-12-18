@@ -18,17 +18,22 @@ import {
 import { useRef, useState } from "react";
 import useAuthStore from "../../store/useAuthStore";
 import usePreviewImg from "../../hooks/usePreviewImg";
+import useEditProfile from "../../hooks/useEditProfile";
 
 const EditProfile = ({ isOpen, onClose }) => {
   const authUser = useAuthStore((state) => state.user);
   const fileRef = useRef();
+  const { isUpdating, editProfile } = useEditProfile();
   const [inputs, setinputs] = useState({
     fullname: "",
     bio: "",
   });
-  const { handleImageChange, selectedFile, setselectedFile } = usePreviewImg();
+  const { handleImageChange, selectedFile, setselectedFile, selectedFileUrl } =
+    usePreviewImg();
   const handleEditProfile = () => {
-    console.log(inputs);//4.55
+    editProfile(inputs, selectedFile);
+    setselectedFile(null);
+    onClose();
   };
   return (
     <>
@@ -59,14 +64,23 @@ const EditProfile = ({ isOpen, onClose }) => {
                 <FormControl>
                   <Stack direction={["column", "row"]} spacing={6}>
                     <Center>
-                      <Avatar size="xl" src={selectedFile || authUser.profilePicURL} border={"2px solid white "} />
+                      <Avatar
+                        size="xl"
+                        src={selectedFileUrl || authUser.profilePicURL}
+                        border={"2px solid white "}
+                      />
                     </Center>
                     <Center w="full">
                       <Button w="full" onClick={() => fileRef.current.click()}>
                         Edit Profile Picture
                       </Button>
                     </Center>
-                    <Input type="file" hidden ref={fileRef} onChange={handleImageChange}/>
+                    <Input
+                      type="file"
+                      hidden
+                      ref={fileRef}
+                      onChange={handleImageChange}
+                    />
                   </Stack>
                 </FormControl>
 
@@ -76,7 +90,7 @@ const EditProfile = ({ isOpen, onClose }) => {
                     placeholder={"Full Name"}
                     size={"sm"}
                     type={"text"}
-                    value={inputs.fullname || authUser.fullName}
+                    value={inputs.fullname || authUser.fullname}
                     onChange={(e) =>
                       setinputs({ ...inputs, fullname: e.target.value })
                     }

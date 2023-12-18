@@ -12,8 +12,8 @@ public class UserProfileRowMapper implements RowMapper<UserProfile> {
 	@Override
 	public UserProfile mapRow(ResultSet rs, int rowNum) throws SQLException {
 		UserProfile userProfile = new UserProfile();
-		userProfile.setUserName(rs.getString("user_name"));
-		userProfile.setFullName(rs.getString("fullname"));
+		userProfile.setUsername(rs.getString("user_name"));
+		userProfile.setFullname(rs.getString("fullname"));
 		userProfile.setEmail(rs.getString("email"));
 		userProfile.setBio(rs.getString("bio"));
 		userProfile.setPosts(rs.getInt("posts"));

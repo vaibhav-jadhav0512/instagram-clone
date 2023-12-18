@@ -12,8 +12,8 @@ const useSignUpWithEmailAndPassword = () => {
   const logoutUser = useAuthStore((state) => state.logout);
   const signup = async (inputs) => {
     if (
-      !inputs.fullName ||
-      !inputs.userName ||
+      !inputs.fullname ||
+      !inputs.username ||
       !inputs.email ||
       !inputs.password
     ) {
@@ -26,8 +26,8 @@ const useSignUpWithEmailAndPassword = () => {
       const response = await axios.post(
         "http://localhost:8888/api/v1/auth/register",
         {
-          fullname: inputs.fullName,
-          username: inputs.userName,
+          fullname: inputs.fullname,
+          username: inputs.username,
           email: inputs.email,
           password: inputs.password,
         }

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserProfile {
 
-	private String fullName;
-	private String userName;
+	private String fullname;
+	private String username;
 	private String email;
 	private int posts;
 	private int followers;

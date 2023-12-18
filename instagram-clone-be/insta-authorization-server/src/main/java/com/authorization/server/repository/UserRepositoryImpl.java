@@ -45,7 +45,7 @@ public class UserRepositoryImpl implements UserRepository {
 		log.info("Adding user:{}", user.toString());
 		Map<String, Object> params = new HashMap<>();
 		params.put("userName", user.getUsername());
-		params.put("fullname", user.getFullName());
+		params.put("fullname", user.getFullname());
 		params.put("email", user.getEmail());
 		params.put("password", user.getPassword());
 		try {
@@ -72,10 +72,10 @@ public class UserRepositoryImpl implements UserRepository {
 	public int updateUserProfile(UserUpdateRequest userUpdateRequest) {
 		StringBuilder updateQueryBuilder = new StringBuilder("UPDATE insta.`user` SET ");
 		Map<String, Object> params = new HashMap<>();
-		params.put("username", userUpdateRequest.getUserName());
-		if (userUpdateRequest.getFullName() != null) {
+		params.put("username", userUpdateRequest.getUsername());
+		if (userUpdateRequest.getFullname() != null) {
 			updateQueryBuilder.append("fullname = :fullName, ");
-			params.put("fullName", userUpdateRequest.getFullName());
+			params.put("fullName", userUpdateRequest.getFullname());
 		}
 		if (userUpdateRequest.getBio() != null) {
 			updateQueryBuilder.append("bio = :bio, ");
