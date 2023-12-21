@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-public class InstaCommentBeApplication {
+public class InstaActionsBeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InstaCommentBeApplication.class, args);
+		SpringApplication.run(InstaActionsBeApplication.class, args);
 	}
 
 }
