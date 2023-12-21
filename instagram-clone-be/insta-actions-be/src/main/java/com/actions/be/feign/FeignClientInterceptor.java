@@ -1,4 +1,4 @@
-package com.comment.be.feign;
+package com.actions.be.feign;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

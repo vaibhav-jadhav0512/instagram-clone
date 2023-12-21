@@ -1,4 +1,4 @@
-package com.comment.be.feign;
+package com.actions.be.feign;
 
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.http.HttpStatus;

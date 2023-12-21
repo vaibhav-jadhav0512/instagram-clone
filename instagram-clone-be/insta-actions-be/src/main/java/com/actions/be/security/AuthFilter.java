@@ -1,4 +1,4 @@
-package com.comment.be.security;
+package com.actions.be.security;
 
 import java.io.IOException;
 import java.util.Arrays;

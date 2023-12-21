@@ -1,4 +1,4 @@
-package com.comment.be.feign;
+package com.actions.be.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

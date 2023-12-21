@@ -25,7 +25,7 @@ const useUserProfile = (username) => {
     getUserProfile()
     // eslint-disable-next-line
   }, [setUserProfile,username]);
-  return { loading, userProfile };
+  return { loading, userProfile,setUserProfile };
 };
 
 export default useUserProfile;

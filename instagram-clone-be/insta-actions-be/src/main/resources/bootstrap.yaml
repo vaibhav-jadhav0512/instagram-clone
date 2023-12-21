@@ -4,4 +4,4 @@ spring:
       enabled: true
       uri: http://localhost:8765
   application:
-    name: insta-comment-be
+    name: insta-actions-be
