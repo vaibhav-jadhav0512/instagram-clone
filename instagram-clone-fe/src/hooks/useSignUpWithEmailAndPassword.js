@@ -42,7 +42,6 @@ const useSignUpWithEmailAndPassword = () => {
       localStorage.setItem("user-info", JSON.stringify(user.data));
       loginUser(user.data)
     } catch (error) {
-      console.log(error);
       showToast("Error", error?.response?.data.message, "error");
       setError("Something went wrong!");
       setToken(null);

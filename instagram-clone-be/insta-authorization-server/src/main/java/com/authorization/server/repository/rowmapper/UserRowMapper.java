@@ -2,6 +2,9 @@ package com.authorization.server.repository.rowmapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -20,7 +23,20 @@ public class UserRowMapper implements RowMapper<User> {
 		user.setRole(Role.valueOf(rs.getString("role")));
 		user.setFullname(rs.getString("fullname"));
 		user.setBio(rs.getString("bio"));
+		String followersStr = rs.getString("followers");
+		if (followersStr != null) {
+			List<Integer> followers = parseCsvToIntList(followersStr);
+			user.setFollowers(followers);
+		}
+		String followingStr = rs.getString("following");
+		if (followingStr != null) {
+			List<Integer> following = parseCsvToIntList(followingStr);
+			user.setFollowing(following);
+		}
 		return user;
 	}
 
+	private List<Integer> parseCsvToIntList(String csv) {
+		return Arrays.stream(csv.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+	}
 }

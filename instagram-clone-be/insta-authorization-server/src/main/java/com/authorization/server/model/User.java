@@ -31,6 +31,8 @@ public class User implements UserDetails {
 	@JsonIgnore
 	private String password;
 	private Role role;
+	private List<Integer> following;
+	private List<Integer> followers;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
