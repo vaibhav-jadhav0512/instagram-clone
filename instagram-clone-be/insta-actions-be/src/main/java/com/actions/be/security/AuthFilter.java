@@ -42,13 +42,13 @@ public class AuthFilter extends OncePerRequestFilter {
 		}
 		final String authHeader = request.getHeader("Authorization");
 		final String jwtToken;
-
 		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 			response.setStatus(403);
 			return;
 		}
 
 		jwtToken = authHeader.substring(7);
+		System.out.println(jwtToken);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(jwtToken);
 		HttpEntity<Void> entity = new HttpEntity<>(headers);
