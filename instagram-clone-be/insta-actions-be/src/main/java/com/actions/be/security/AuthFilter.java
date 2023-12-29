@@ -48,7 +48,6 @@ public class AuthFilter extends OncePerRequestFilter {
 		}
 
 		jwtToken = authHeader.substring(7);
-		System.out.println(jwtToken);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(jwtToken);
 		HttpEntity<Void> entity = new HttpEntity<>(headers);
@@ -56,6 +55,8 @@ public class AuthFilter extends OncePerRequestFilter {
 		try {
 			ResponseEntity<Void> authResponse = restTemplate.exchange(AUTH_URL + jwtToken, HttpMethod.GET, entity,
 					Void.class);
+			
+			System.out.println(authResponse);
 			if (authResponse.getStatusCode().is2xxSuccessful()) {
 				filterChain.doFilter(request, response);
 			}
