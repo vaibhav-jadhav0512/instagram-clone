@@ -16,7 +16,6 @@ const useFollowUser = (userId) => {
   const { userProfile, setUserProfile } = useUserProfile(username);
   const showToast = useShowToast();
   const handleFollowUser = async () => {
-    debugger
     setisUpdating(true);
     try {
       const response = await axios.post(
