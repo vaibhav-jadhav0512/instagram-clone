@@ -9,9 +9,9 @@ spring:
     gateway:
       routes:
         - id: insta-actions-be
-          uri: lb://INSTA-ACTIONS-BE
+          uri: lb://INSTA-ACTIVITY-BE
           predicates:
-            - Path=/api/v1/comment/**, /api/v1/follow/**
+            - Path=/api/v1/follow/**
           filters:
           - AuthenticationFilter
         - id: insta-authorization-server
@@ -36,6 +36,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
